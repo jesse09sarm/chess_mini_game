@@ -62,7 +62,7 @@ def draw_board(grid, clicked):
 
     # makes the game board by default green 
     pygame.draw.rect(screen, GREEN, (BORDER, BORDER, SQUARESIZE * 8, SQUARESIZE * 8))
-    # reasoon is when a piece is selected the cell will not be colored light gray or dark gray
+    # reason is when a piece is selected the cell will not be colored light gray or dark gray
     # therefore the cell will be highlighted green
     # shows the user which piece will be moved with the next click
 
@@ -120,6 +120,7 @@ def draw_board(grid, clicked):
 # converts the pixel x,y location of the mouse click to the index of the board array
 def get_cell(x, y):
     # checks if the mouse click was on the board not on the border
+    # returns a flipped x,y because pygame has 0,0 at the top left corner
     if BORDER < x < COLUMNS * SQUARESIZE + BORDER and BORDER < y < ROWS * SQUARESIZE + BORDER:
         return int((y - BORDER) / SQUARESIZE), int((x - BORDER) / SQUARESIZE)
 
