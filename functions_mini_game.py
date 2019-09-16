@@ -26,11 +26,21 @@ pygame.display.set_caption("CHESS: MINI-GAME")
 # intitializes variables for the start of the game
 # variables -> selection, turn, selected_piece, prev_x, prev_y, board
 def start_game():
+    # represents whether a piece is selected
     clicked = False
+
+    # pawn is turn % 2 = 0
+    # queen is turn % 2 = 1
     player_turn = 0
+
+    # holds Q or p for queen or pawn selected
     curr_piece = ""
+
+    # stores selected piece indexes to remove the piece once moved
     first_x = ""
     first_y = ""
+
+    # represents the board
     grid = [["", "", "", "Q", "", "", "", ""],
             ["", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", ""],
@@ -39,6 +49,7 @@ def start_game():
             ["", "", "", "", "", "", "", ""],
             ["p", "p", "p", "p", "p", "p", "p", "p"],
             ["", "", "", "", "", "", "", ""]]
+            
     return clicked, player_turn, curr_piece, first_x, first_y, grid
 
 
