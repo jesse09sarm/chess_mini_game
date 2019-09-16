@@ -39,7 +39,7 @@ while play_again:
                     prev_y = ""
                     selection = False
             draw_board(board, [prev_x, prev_y])
-            if check_end(board):
+            if check_end(board, turn):
                 play_again = game_over(turn)
                 if play_again:
                     selection, turn, selected_piece, prev_x, prev_y, board = start_game()

@@ -301,30 +301,58 @@ def valid_Qmove(firstx, firsty, nextx, nexty, grid):
 
 
 # checks if a player has won 
-def check_end(grid):
+# passes in the board and player's turn
+def check_end(grid, player):
     # checks if pawn has reached the top of the board
     if "p" in grid[0]:
         return True
 
-    # bool for pieces is to check if they are still on the board
-    pawn = False
+    # needs to count pawns for edge case where a pawn is still on the board
+    # but has no valid move
+    pawn_count = 0
+
+    # bool for piece to check if it is still on the board
     queen = False
+
+    # when queen is front of a pawn blocking its path forward
+    # used for edge case when only one pawn left
+    trapped = False
 
     # iterates through board to find pieces 
     for r in range(ROWS):
         for c in range(COLUMNS):
             if grid[r][c] == "p":
-                pawn = True
+                pawn_count += 1
             if grid[r][c] == "Q":
                 queen = True
 
-            # when both pieces are found game can not be over
-            if pawn and queen:
+                # try block for when queen is on first rank can not check lower row
+                try:
+
+                    # checks if queen is blocking path of a pawn
+                    if grid[r + 1][c] == "p":
+                        trapped = True
+                    else:
+                        trapped = False
+
+                # queen on first rank means is not in front of any pawn
+                except IndexError:
+                    trapped = False
+
+            # when more than one pawn queen can not trap both moves
+            if queen and pawn_count > 1:
                 return False
 
     # when one piece is no longer on the board game is over
-    return True
+    if not queen or pawn_count == 0:
+        return True
 
+    # edge case when it is pawns move but queen blocks only move forward
+    if player == 2 and trapped:
+        return True
+    else: 
+        return False
+        
 
 # runs at the end of game 
 # passed in value is the turn that it ended on to figure out winner
